@@ -47,7 +47,7 @@ számolA1 <- function(X, Y) {
 	összegX3 <- Összegzés(X^3)
 	összegX4 <- Összegzés(X^4)
 
-#szamlalo es nevezo kiszamolasa
+#számláló és nevező kiszámolása
 	számláló <- összegX4 * ((összegXY * n) - (összegY * összegX)) - összegX2Y * ((összegX3 * n) - (összegX2 * összegX)) + összegX2 * ((összegX3 * összegY) - (összegX2 * összegXY))
 	nevező <- összegX4 * ((összegX2 * n) - (összegX * összegX)) - összegX3 * ((összegX3 * n) - (összegX2 * összegX)) + összegX2 * ((összegX3 * összegX) - (összegX2 * összegX2))
 	return(számláló/nevező)
@@ -91,3 +91,4 @@ számolA2 <- function(X, Y) {
 
 #futtatás
 PolinomiálisRegresszió(x, y)
+

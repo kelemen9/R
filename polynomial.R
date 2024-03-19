@@ -1,57 +1,87 @@
-#n-ed fokú polinomiális regresszió
+x <- c(1,2,3,4)
+y <- c(5*x^2+3*x+7)
+n <- length(x)
 
-#véletlen adatok generálása
-X <- rnorm(100)
-Y <- rnorm(100)
-n <- length(X)
+PoliRegres <- function(X, Y) {
 
-#PolynomialRegression fv. megjeleníti az adatokat és kiszámítja a másodfokú egyenlet együtthatóját.
-PolynomialRegression <- function(X, Y) {
-  plot(X, Y)
-  szamolX2(X, Y)
-#calculateA1 és calculateA0 függvény üres
+	plot(X, Y)
+	a2 <- calculateA2(X, Y) 
+	a1 <- calculateA1(X, Y)
+	a0 <- calculateA0(X, Y)
+	lines(X, a2 * X^2 + a1 * X + a0, type = "l", lty = 1, col = "red")
+
+	cat("a2:", a2, "\n")
+  	cat("a1:", a1, "\n")
+  	cat("a0:", a0, "\n")
 }
 
-#A másodfokú együttható kiszámítása
-szamolX2 <- function(X, Y) {
-  osszegX <- Summary(X)
-  osszegY <- Summary(Y)
-  osszegXY <- Summary(X, Y)
-  osszegX2Y <- Summary(X^2, Y)
-  osszegX2 <- Summary(X^2)
-  osszegX3 <- Summary(X^3)
-  osszegX4 <- Summary(X^4)
+calculateA2 <- function(X, Y) {
+	
+	sumX <- Summary(X)
+      sumY <- Summary(Y)
+      sumXY <- Summary(X,Y)
+	sumX2Y <- Summary(X^2, Y)
+      sumX2 <- Summary(X^2)
+	sumX3 <- Summary(X^3)
+	sumX4 <- Summary(X^4)
 
-#számláló és nevező kiszámolása
-  szamlalo <- osszegX2Y * ((osszegX2 * n) - (osszegX * osszegX)) - osszegX3 * ((osszegXY * n) - (osszegY * osszegX)) + osszegX2 * ((osszegXY * osszegX) - (osszegY * osszegX2))
-  nevezo <- osszegX4 * ((osszegX2 * n) - (osszegX * osszegX)) - osszegX3 * ((osszegX3 * n) - (osszeX2  * osszegX)) + osszegX2 * ((osszegX3 * osszegX) - (osszegX2 * osszegX2))
-  
-#nullával való osztás ellenőrzése
-  if (nevezo == 0) {
-    print("Nullával való osztás történt, az eredmény nem értelmezhető.")
-    return(NULL)
-  }
-  
-  eredmeny <- szamlalo / nevezo
-  print(eredmeny)
+	#számláló
+	numerator <- sumX2Y * ((sumX2 * n) - (sumX * sumX)) - sumX3 * ((sumXY * n) - (sumY * sumX)) + sumX2 * ((sumXY * sumX) - (sumY * sumX2))
+	#nevező
+	denominator <- sumX4 * ((sumX2 * n) - (sumX * sumX)) - sumX3 * ((sumX3 * n) - (sumX2  * sumX)) + sumX2 * ((sumX3 * sumX) - (sumX2 * sumX2))
+	return(numerator/denominator)
 }
 
-#összegzés funkció, amely két változót fogad el és visszaadja azok összegét
+calculateA1 <- function(X, Y) {
+
+	sumX <- Summary(X)
+      sumY <- Summary(Y)
+      sumXY <- Summary(X,Y)
+	sumX2Y <- Summary(X^2, Y)
+      sumX2 <- Summary(X^2)
+	sumX3 <- Summary(X^3)
+	sumX4 <- Summary(X^4)
+
+	#számláló
+	numerator <- sumX4 * ((sumXY * n) - (sumY * sumX)) - sumX2Y * ((sumX3 * n) - (sumX2 * sumX)) + sumX2 * ((sumX3 * sumY) - (sumX2 * sumXY))
+	#nevező
+	denominator <- sumX4 * ((sumX2 * n) - (sumX * sumX)) - sumX3 * ((sumX3 * n) - (sumX2 * sumX)) + sumX2 * ((sumX3 * sumX) - (sumX2 * sumX2))
+	return(numerator/denominator)
+}
+
+calculateA0 <- function(X, Y) {
+
+	sumX <- Summary(X)
+      sumY <- Summary(Y)
+      sumXY <- Summary(X,Y)
+	sumX2Y <- Summary(X^2, Y)
+      sumX2 <- Summary(X^2)
+	sumX3 <- Summary(X^3)
+	sumX4 <- Summary(X^4)
+
+	#számláló
+	numerator <- sumX4 * ((sumX2 * sumY) - (sumX * sumXY)) - sumX3 * ((sumX3 * sumY) - (sumX2 * sumXY)) + sumX2Y * ((sumX3 * sumX) - (sumX2 * sumX2))
+	#nevező
+	denominator <- sumX4 * ((sumX2 * n) - (sumX * sumX)) - sumX3 * ((sumX3 * n) - (sumX2 * sumX)) + sumX2 * ((sumX3 * sumX) - (sumX2 * sumX2))
+	return(numerator/denominator)
+}
+
 Summary <- function(X, Y) {
-  osszeg <- 0
-  n <- length(X)
-  if (missing(Y)) {
-    for (i in 1:n) {
-      osszeg <- osszeg + X[i]
+
+	sum <- 0
+	n <- length(X)
+
+    if (missing(Y)) {
+    	for (i in 1:n) {
+      		sum <- sum + X[i]
+    	}
+   		return(sum)
+  	}
+
+	for (i in 1:n) {
+        sum <- sum + X[i] * Y[i]
     }
-    return(osszeg)
-  }
-  for (i in 1:n) {
-    osszeg <- osszeg + X[i] * Y[i]
-  }
-  return(osszeg)
+    return(sum)
 }
 
-#futtatás
-PolynomialRegression(X, Y)
-
+PoliRegres(x, y)

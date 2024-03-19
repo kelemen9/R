@@ -3,7 +3,7 @@
 #véletlen adatok generálása
 x <- c(1,2,3,4)
 y <- c(5*x^2+3*x+7)
-n <- length(X)
+n <- length(x)
 
 #PolynomialRegression fv. megjeleníti az adatokat és kiszámítja a másodfokú egyenlet együtthatóját.
 
@@ -34,9 +34,9 @@ PolynomialRegression <- function(X, Y) {
 
 #számláló és nevező kiszámolása
   szamlalo <- osszegX4 * ((osszegXY * n) - (osszegY * osszegX)) - osszegX2Y * ((osszegX3 * n) - (osszegX2 * osszegX)) + osszegX2 * ((osszegX3 * osszegY) - (osszegX2 * osszegXY))
-  nevezo <- osszegX4 * ((osszegX2 * n) - (osszegX * osszegX)) - osszegX3 * ((osszegX3 * n) - (osszegX2  * osszegX)) + osszegX2 * ((osszegX * osszegX) - (osszegX2 * osszegX2))
+  nevezo <- osszegX4 * ((osszegX2 * n) - (osszegX * osszegX)) - osszegX3 * ((osszegX3 * n) - (osszegX2  * osszegX)) + osszegX2 * ((osszegX3 * osszegX) - (osszegX2 * osszegX2))
   return(szamlalo/nevezo)
-
+ 
 #A0 másodfokú együttható kiszámítása
 szamolA0 <- function(X, Y) {
 
@@ -49,7 +49,7 @@ szamolA0 <- function(X, Y) {
   osszegX4 <- Summary(X^4)
 
 #számláló és nevező kiszámolása
-  szamlalo <- osszegX4 * ((osszegX2 * osszegY) - (osszegX * osszegXY)) - osszegX3 * ((osszegX3 * osszegY) - (osszegX2 * osszegXY)) + osszegX2Y * ((osszegX3 * osszegX) - (osszegY* osszegX2))
+  szamlalo <- osszegX4 * ((osszegX2 * osszegY) - (osszegX * osszegXY)) - osszegX3 * ((osszegX3 * osszegY) - (osszegX2 * osszegXY)) + osszegX2Y * ((osszegX3 * osszegX) - (osszegX2 * osszegX2))
   nevezo <- osszegX4 * ((osszegX2 * n) - (osszegX * osszegX)) - osszegX3 * ((osszegX3 * n) - (osszegX2  * osszegX)) + osszegX2 * ((osszegX3 * osszegX) - (osszegX2 * osszegX2))
   return(szamlalo/nevezo)
 }
@@ -86,4 +86,4 @@ Summary <- function(X, Y) {
   return(osszeg)
 }
 
-PolynomialRegression(X, Y)
+PolynomialRegression(x, y)

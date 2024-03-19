@@ -7,7 +7,7 @@ n <- length(x)
 
 #PolynomialRegression fv. megjeleníti az adatokat és kiszámítja a másodfokú egyenlet együtthatóját.
 
-PolynomialRegression <- function(X, Y) {
+PolynomialRegression <- function (X, Y) {
 
   plot(X, Y)
   a0 <- szamolA0(X, Y)
@@ -21,24 +21,8 @@ PolynomialRegression <- function(X, Y) {
    cat("a2:", a2, "\n")
 }
 
-#A1 másodfokú együttható kiszámítása
-  szamolA1 <- function(X, Y) {
-
-  osszegX <- Summary(X)
-  osszegY <- Summary(Y)
-  osszegXY <- Summary(X, Y)
-  osszegX2Y <- Summary(X^2, Y)
-  osszegX2 <- Summary(X^2)
-  osszegX3 <- Summary(X^3)
-  osszegX4 <- Summary(X^4)
-
-#számláló és nevező kiszámolása
-  szamlalo <- osszegX4 * ((osszegXY * n) - (osszegY * osszegX)) - osszegX2Y * ((osszegX3 * n) - (osszegX2 * osszegX)) + osszegX2 * ((osszegX3 * osszegY) - (osszegX2 * osszegXY))
-  nevezo <- osszegX4 * ((osszegX2 * n) - (osszegX * osszegX)) - osszegX3 * ((osszegX3 * n) - (osszegX2  * osszegX)) + osszegX2 * ((osszegX3 * osszegX) - (osszegX2 * osszegX2))
-  return(szamlalo/nevezo)
- 
 #A0 másodfokú együttható kiszámítása
-szamolA0 <- function(X, Y) {
+szamolA0 <- function (X, Y) {
 
   osszegX <- Summary(X)
   osszegY <- Summary(Y)
@@ -53,10 +37,24 @@ szamolA0 <- function(X, Y) {
   nevezo <- osszegX4 * ((osszegX2 * n) - (osszegX * osszegX)) - osszegX3 * ((osszegX3 * n) - (osszegX2  * osszegX)) + osszegX2 * ((osszegX3 * osszegX) - (osszegX2 * osszegX2))
   return(szamlalo/nevezo)
 }
+#A1 másodfokú együttható kiszámítása
+  szamolA1 <- function (X, Y) {
 
+  osszegX <- Summary(X)
+  osszegY <- Summary(Y)
+  osszegXY <- Summary(X, Y)
+  osszegX2Y <- Summary(X^2, Y)
+  osszegX2 <- Summary(X^2)
+  osszegX3 <- Summary(X^3)
+  osszegX4 <- Summary(X^4)
+
+#számláló és nevező kiszámolása
+  szamlalo <- osszegX4 * ((osszegXY * n) - (osszegY * osszegX)) - osszegX2Y * ((osszegX3 * n) - (osszegX2 * osszegX)) + osszegX2 * ((osszegX3 * osszegY) - (osszegX2 * osszegXY))
+  nevezo <- osszegX4 * ((osszegX2 * n) - (osszegX * osszegX)) - osszegX3 * ((osszegX3 * n) - (osszegX2  * osszegX)) + osszegX2 * ((osszegX3 * osszegX) - (osszegX2 * osszegX2))
+  return(szamlalo/nevezo)
 
 #A2 másodfokú együttható kiszámítása
-szamolA2 <- function(X, Y) {
+szamolA2 <- function (X, Y) {
   osszegX <- Summary(X)
   osszegY <- Summary(Y)
   osszegXY <- Summary(X, Y)
@@ -71,13 +69,13 @@ szamolA2 <- function(X, Y) {
   return(szamlalo/nevezo)
 
 #összegzés funkció, amely két változót fogad el és visszaadja azok összegét
-Summary <- function(X, Y) {
+Summary <- function (X, Y) {
   osszeg <- 0
   n <- length(X)
-  if (missing(Y)) {
-    for (i in 1:n) {
-      osszeg <- osszeg + X[i]
-    }
+if (missing(Y)) {
+  for (i in 1:n) {
+    osszeg <- osszeg + X[i]
+  }
     return(osszeg)
   }
   for (i in 1:n) {

@@ -33,3 +33,4 @@ adat_matrix <- matrix(c(42, 28, 3, 17, 89, 21), nrow = 2, ncol = 3, byrow = TRUE
 
 # Függetlenségvizsgálat futtatása
 fuggetlenseg_vizsgalat(adat_matrix)
+

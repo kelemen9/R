@@ -18,3 +18,6 @@ Illeszkedésvizsgálat <- function(k, p, N){
 }
 
 Illeszkedésvizsgálat(k, p, N)
+
+
+

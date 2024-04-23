@@ -92,3 +92,4 @@ számolA2 <- function(X, Y) {
 #futtatás
 PolinomiálisRegresszió(x, y)
 
+

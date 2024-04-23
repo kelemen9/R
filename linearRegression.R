@@ -57,3 +57,6 @@ Summary <- function(X, Y) {
     return(sum)
 }
 LinearRegression(x, y)
+
+
+
